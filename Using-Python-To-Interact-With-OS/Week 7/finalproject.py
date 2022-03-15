@@ -2,9 +2,6 @@
 ''' The logfile to be processed has to be passed  to the script'''
 ''' as an argument'''
 
-
-
-
 import re
 import sys
 import csv
