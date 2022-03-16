@@ -12,12 +12,11 @@ def generate_data_dictionaries(log_file_address):
 	with open(log_file_address, "r") as log_file:
 		for line in log_file.readlines():
 			#print(line)
-			log_pattern = r" ([A-Z]*): ([A-Z]{1}.*) \((\w*)\)$"
+			log_pattern = r": ([A-Z]*) ([A-Z]{1}.*) \((\S*)\)$"
 			search = re.search(log_pattern, line)
 			log_type = search.group(1)
 			log_message = search.group(2)
 			log_user = search.group(3)
-			# print(log_user[1:-1]).capitalize()
 			# Log message errors count
 			if log_type == "ERROR":
 				if log_message not in errors_dictionary:
@@ -40,10 +39,10 @@ def dictionaries_to_csv(errors_dictionary, user_data_dictionary):
 	print(errors_dictionary, "\n")
 	print(user_data_dictionary, "\n")
 
-	# with open("./error_message.csv", "w") as error_message_csv:
-	# 	writer = csv.writer(error_message_csv)
-	# 	writer.writerow(["Error", "Count"])
-	# 	writer.writerows(errors_dictionary)
+	with open("./error_message.csv", "w") as error_message_csv:
+		writer = csv.writer(error_message_csv)
+		writer.writerow(["Error", "Count"])
+		writer.writerows(errors_dictionary)
 	
 	with open("./user_statistics.csv", "w") as user_statistics_csv:
 		writer = csv.writer(user_statistics_csv)
